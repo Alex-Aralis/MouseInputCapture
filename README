@@ -1,0 +1,30 @@
+dependencies:
+
+    to run you need xinput
+
+instructions:
+
+    open a teminal
+
+    $ xinput list
+
+    find the devices you want to record in the listing
+
+    record there id numbers
+
+    navagate to the prject directory
+
+    $ ./multicap id [id, [ ... ]]
+
+    now multicap is spewing info into stdout
+
+    to make a csv
+
+    $ ./multicap args >> file.csv
+
+    to stop recording CTR-C, ^C, SIGINT.
+
+    dont kill with SIGTERM unless you want a mess
+
+
+
