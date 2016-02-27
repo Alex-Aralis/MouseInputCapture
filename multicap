@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for arg
+do
+    ./inputcap $arg &
+done
+
+IFS=''
+
+trap $(echo "kill -s 9 -$$") SIGINT
+
+IFS=' '
+
+sleep infinity

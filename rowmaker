@@ -1,0 +1,39 @@
+#!/bin/bash
+
+while read -r line || [[ -n $line ]]
+do
+    timestamp=$(date +%s.%N)
+    if [[ $line == motion* ]]
+    then
+        newx=$(echo "$line" | sed -rn 's/.*?a\[0\]=([0-9]+).*/\1/p')
+        newy=$(echo "$line" | sed -rn 's/.*?a\[1\]=([0-9]+).*/\1/p')
+        if [ -z $newx ]
+        then
+            newx=$oldx
+        fi
+        if [ -z $newy ]
+        then
+            newy=$oldy
+        fi
+
+        if ( [ $newx != $oldx ] || [ $newy != $oldy ] ) && [ $newx != '-1' ] && [ $newy != '-1' ]
+        then
+            echo $timestamp,$1,0,n,$newx,$newy
+        fi
+        oldx=$newx
+        oldy=$newy
+    elif [[ $line == button* ]]
+    then
+        button=$(echo "$line" | sed -rn 's/.*?([0-9]+).*/\1/p')
+        action=$(echo "$line" | sed -rn 's/.*?press.*/p/p')
+
+        if [ -z $action ]
+        then 
+            action=r
+        fi
+
+        echo $timestamp,$1,$button,$action,$oldx,$oldy
+    else
+        echo $line
+    fi
+done
