@@ -1,0 +1,50 @@
+#!/bin/bash
+
+CLOCK=0
+OLDX=n
+OLDY=n
+
+while IFS=',' read -d '.' x y 
+do
+    if [ -z $y ] 
+    then
+        if [[ $x == '+' ]]
+        then
+            (( CLOCK=CLOCK+1 ))
+        elif [[ $x == 'LButton Down' ]]
+        then
+            BUTTON=1
+            ACTOIN=p
+        elif [[ $x == 'LButton Up' ]]
+        then
+            BUTTON=1
+            ACTION=r
+        elif [[ $x == 'RButton Down' ]]
+        then
+            BUTTON=2
+            ACTION=p
+        elif [[ $x == 'RButton Up' ]]
+        then
+            BUTTON=2
+            ACTION=r
+        elif [[ $x == 'WheelDown Down' ]]
+        then
+            BUTTON=3
+            ACTION=p
+        elif [[ $x == 'WheelUp Down' ]]
+        then
+            BUTTON=3
+            ACTION=r
+        else
+            echo '----------------------->>>>>'$x
+        fi
+    else
+        (( CLOCK=CLOCK+1 ))
+        OLDX=$x
+        OLDY=$y
+        BUTTON=0
+        ACTION=n
+    fi
+
+    echo "$CLOCK, -1, $BUTTON, $ACTION, $OLDX, $OLDY"
+done
