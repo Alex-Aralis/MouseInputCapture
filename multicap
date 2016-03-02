@@ -1,13 +1,15 @@
 #!/bin/bash
 
+timestamp=$(date +%s.%N)
+
 for arg
 do
-    ./inputcap $arg &
+    ./inputcap $arg $timestamp &
 done
 
 IFS=''
 
-trap $(echo "kill -s 9 -$$") SIGINT
+trap "kill -s 9 -$$" SIGINT
 
 IFS=' '
 

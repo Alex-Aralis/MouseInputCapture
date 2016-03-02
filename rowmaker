@@ -1,8 +1,10 @@
 #!/bin/bash
 
+
+
 while read -r line || [[ -n $line ]]
 do
-    timestamp=$(date +%s.%N)
+    reltimestamp=$(bc <<< "scale=6; ($(date +%s.%N) - $2)/1" )
     if [[ $line == motion* ]]
     then
         newx=$(echo "$line" | sed -rn 's/.*?a\[0\]=([0-9]+).*/\1/p')
@@ -18,7 +20,8 @@ do
 
         if ( [ $newx != $oldx ] || [ $newy != $oldy ] ) && [ $newx != '-1' ] && [ $newy != '-1' ]
         then
-            echo $timestamp,$1,0,n,$newx,$newy
+            :
+            echo $reltimestamp,$1,0,n,$newx,$newy
         fi
         oldx=$newx
         oldy=$newy
@@ -32,7 +35,7 @@ do
             action=r
         fi
 
-        echo $timestamp,$1,$button,$action,$oldx,$oldy
+        echo $reltimestamp,$1,$button,$action,$oldx,$oldy
     else
         echo $line
     fi

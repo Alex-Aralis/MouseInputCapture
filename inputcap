@@ -3,5 +3,5 @@
 export oldx="-1"
 export oldy="-1"
 
-xinput test $1 | ./rowmaker $1
+xinput test $1 | ./rowmaker $1 $2
 
