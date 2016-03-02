@@ -2,7 +2,7 @@ dependencies:
 
     to run you need xinput
 
-instructions:
+multicap instructions:
 
     open a teminal
 
@@ -26,5 +26,11 @@ instructions:
 
     dont kill with SIGTERM unless you want a mess
 
+
+smr2csv instructions:
+    
+    ./smr2csc POLLINGRATE < infile > outfile
+
+    where POLLINGRATE is the polls per second for the smr creator
 
 

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+POLLINGRATE=$1
+TIC=$(bc <<< "scale=6; 1/$POLLINGRATE")
 CLOCK=0
 OLDX=n
 OLDY=n
@@ -10,7 +13,7 @@ do
     then
         if [[ $x == '+' ]]
         then
-            (( CLOCK=CLOCK+1 ))
+            CLOCK=$(bc <<< "scale=6; ($CLOCK+$TIC)/1")
         elif [[ $x == 'LButton Down' ]]
         then
             BUTTON=1
@@ -39,7 +42,7 @@ do
             echo '----------------------->>>>>'$x
         fi
     else
-        (( CLOCK=CLOCK+1 ))
+        CLOCK=$(bc <<< "scale=6; ($CLOCK+$TIC)/1")
         OLDX=$x
         OLDY=$y
         BUTTON=0
